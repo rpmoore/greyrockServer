@@ -1,0 +1,15 @@
+*.slo
+*.lo
+*.o
+*.so
+*.lai
+*.la
+*.a
+
+*.lib
+*.so
+*.dll
+*.exe
+*.out
+
+_build/
