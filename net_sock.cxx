@@ -1,11 +1,11 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h> //exit
 #include <string.h> //memset
 #include <sys/socket.h> //socket
 #include <sys/types.h>
 #include <netdb.h>
 #include <unistd.h> //close
-#include <errno.h>
+#include <errno.h> //perror, gai_strerror
 #include <arpa/inet.h>
 
 #include "net_sock.h"
