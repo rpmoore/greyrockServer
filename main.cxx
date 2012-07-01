@@ -1,7 +1,8 @@
-#include <iostream>
+#include <stdio.h>
+#include "version.h"
 using namespace std;
 
 int main(void) {
-    cout << "Test" << endl;
-    return 0;
+  printf("This works.");
+  return 0;
 }
