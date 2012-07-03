@@ -5,6 +5,8 @@ project (greyrockServer)
 set (PROJECT_BINARY_DIR "${PROJECT_SOURCE_DIR}/_build")
 set (EXECUTABLE_OUTPUT_PATH "${PROJECT_BINARY_DIR}")
 
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
+
 #set the version information
 set (VERSION_MAJOR 0)
 set (VERSION_MINOR 1)
@@ -14,7 +16,13 @@ configure_file(
     "${PROJECT_BINARY_DIR}/version.h"
 )
 
+
 include_directories("${PROJECT_BINARY_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}/include")
 
-add_executable(greyrockServer net_sock.cxx main.cxx)
+add_subdirectory(netSock)
+add_subdirectory(test)
+
+add_executable(greyrockServer main.cxx)
+
+target_link_libraries(greyrockServer gr_netSock)

@@ -11,8 +11,8 @@
 #include "net_sock.h"
 #include "version.h"
 
-net_sock
-getTcpServerSocket(const char* port, int backLog){
+net_socket
+netSock::getTcpServerSocket(const char* port, int backLog){
   struct addrinfo hints,*servinfo,*p;
   int rv,sockfd;
   int yes = 1;
@@ -56,8 +56,8 @@ getTcpServerSocket(const char* port, int backLog){
   return sockfd;
 }
 
-net_sock
-getTcpClientSocket(const char* address,const char* port){
+net_socket
+netSock::getTcpClientSocket(const char* address,const char* port){
   struct addrinfo hints,*servinfo,*p;
   int rv,sockfd;
   memset(&hints, 0,sizeof(struct addrinfo));

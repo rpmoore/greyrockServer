@@ -18,3 +18,5 @@ Makefile
 *.kdev4
 CMakeCache.txt
 cmake_install.cmake
+.clang_complete
+CMakeFiles/
