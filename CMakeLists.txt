@@ -16,6 +16,8 @@ configure_file(
     "${PROJECT_BINARY_DIR}/version.h"
 )
 
+#add compile flags
+set (CMAKE_CXX_FLAGS "-Wall -Werror -W")
 
 include_directories("${PROJECT_BINARY_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}/include")

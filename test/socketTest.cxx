@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_CASE( create_sockets_test)
 /**
 Test that we can send data on the client socket first.
 */
-BOOST_AUTO_TEST_CASE( send_sockets_test)
+BOOST_AUTO_TEST_CASE( send_from_client_sockets_test)
 {
   net_socket serverSocket = netSock::getTcpServerSocket("9999", 10);
   net_socket clientSocket = netSock::getTcpClientSocket("localhost", "9999");
@@ -33,10 +33,32 @@ BOOST_AUTO_TEST_CASE( send_sockets_test)
   net_socket newSocket;
   BOOST_CHECK_GT(newSocket = accept(serverSocket,NULL,0),0);
 
-  char * outBuf = "BEAD-Test";
+  const char * outBuf = "BEAD-Test";
   char * inBuf = (char *)calloc(strlen(outBuf)+1,sizeof(char));
   BOOST_CHECK_EQUAL(write(clientSocket,outBuf,strlen(outBuf)),strlen(outBuf));
   BOOST_CHECK_EQUAL(read(newSocket,inBuf,strlen(outBuf)),strlen(outBuf));
+  BOOST_CHECK_EQUAL(strcmp(outBuf,inBuf),0);
+  
+  free(inBuf);
+  close(serverSocket);
+  close(clientSocket);
+}
+
+/**
+Test that we can send data from the server socket first.
+*/
+BOOST_AUTO_TEST_CASE( send_from_server_sockets_test)
+{
+  net_socket serverSocket = netSock::getTcpServerSocket("9999", 10);
+  net_socket clientSocket = netSock::getTcpClientSocket("localhost", "9999");
+
+  net_socket newSocket;
+  BOOST_CHECK_GT(newSocket = accept(serverSocket,NULL,0),0);
+
+  const char * outBuf = "BEAD-Test";
+  char * inBuf = (char *)calloc(strlen(outBuf)+1,sizeof(char));
+  BOOST_CHECK_EQUAL(write(newSocket,outBuf,strlen(outBuf)),strlen(outBuf));
+  BOOST_CHECK_EQUAL(read(clientSocket,inBuf,strlen(outBuf)),strlen(outBuf));
   BOOST_CHECK_EQUAL(strcmp(outBuf,inBuf),0);
   
   free(inBuf);

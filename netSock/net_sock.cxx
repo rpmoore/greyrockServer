@@ -80,6 +80,6 @@ netSock::getTcpClientSocket(const char* address,const char* port){
     }
     break;
   }
-
+  freeaddrinfo(servinfo);
   return sockfd;
 }
