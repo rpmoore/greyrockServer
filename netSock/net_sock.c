@@ -12,7 +12,7 @@
 #include "version.h"
 
 net_socket
-netSock::getTcpServerSocket(const char* port, int backLog){
+getTcpServerSocket(const char* port, int backLog){
   struct addrinfo hints,*servinfo,*p;
   int rv,sockfd;
   int yes = 1;
@@ -57,7 +57,7 @@ netSock::getTcpServerSocket(const char* port, int backLog){
 }
 
 net_socket
-netSock::getTcpClientSocket(const char* address,const char* port){
+getTcpClientSocket(const char* address,const char* port){
   struct addrinfo hints,*servinfo,*p;
   int rv,sockfd;
   memset(&hints, 0,sizeof(struct addrinfo));
@@ -82,4 +82,18 @@ netSock::getTcpClientSocket(const char* address,const char* port){
   }
   freeaddrinfo(servinfo);
   return sockfd;
+}
+
+bool
+gr_netSock_createURI(const gr_uri *uri_struct, const char *uri, const size_t length){
+  int index = 0,startIndex,endIndex;
+  //clear out the uri struct
+  memset((void *)uri_struct,0,sizeof(gr_uri));
+  //start reading the characters from the input stream.
+  //find the first non whitespace charachter.
+  while(index < length && isspace(uri[index])){++index;}
+  startIndex = index; // need this to copy the full url at the end.
+  
+
+
 }

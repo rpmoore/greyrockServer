@@ -23,6 +23,7 @@ include_directories("${PROJECT_BINARY_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}/include")
 
 add_subdirectory(netSock)
+add_subdirectory(httpEngine)
 add_subdirectory(test)
 
 add_executable(greyrockServer main.cxx)
