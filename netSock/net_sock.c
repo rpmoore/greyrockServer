@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h> //exit
 #include <string.h> //memset
+#include <stdbool.h> //true false
 #include <sys/socket.h> //socket
 #include <sys/types.h>
 #include <netdb.h>
@@ -95,5 +96,5 @@ gr_netSock_createURI(const gr_uri *uri_struct, const char *uri, const size_t len
   startIndex = index; // need this to copy the full url at the end.
   
 
-
+  return false;
 }

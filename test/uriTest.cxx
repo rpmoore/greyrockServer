@@ -24,7 +24,23 @@ BOOST_AUTO_TEST_CASE( parseBaseURI)
   BOOST_CHECK(uri.user != NULL);
   BOOST_CHECK_EQUAL(uri.user,"ryan");
   BOOST_CHECK(uri.file != NULL);
-  BOOST_CHECK_EQUAL(uri.file,"index.html");
+  BOOST_CHECK_EQUAL(uri.file,"/index.html");
 
 }
 
+/**
+ @brief A basic test to make sure that the absolute path can be parsed.
+*/
+BOOST_AUTO_TEST_CASE( parseAbsoluteURI)
+{
+  gr_uri uri;
+  const char * testURI = "/index.html";
+  BOOST_CHECK(gr_netSock_createURI(&uri,testURI,strlen(testURI)));
+  BOOST_CHECK(uri.hostname == NULL);
+  BOOST_CHECK_EQUAL(uri.port,0);
+  BOOST_CHECK(uri.protocol == NULL);
+  BOOST_CHECK(uri.user == NULL);
+  BOOST_CHECK(uri.file != NULL);
+  BOOST_CHECK_EQUAL(uri.file,"/index.html");
+
+}
