@@ -86,15 +86,25 @@ getTcpClientSocket(const char* address,const char* port){
 }
 
 bool
-gr_netSock_createURI(const gr_uri *uri_struct, const char *uri, const size_t length){
-  int index = 0,startIndex,endIndex;
+gr_netSock_createURI(gr_uri *uri_struct, const char *uri, const size_t length){
+  int index = 0,start_index,end_index,hostname_size;
+  
   //clear out the uri struct
   memset((void *)uri_struct,0,sizeof(gr_uri));
+  
   //start reading the characters from the input stream.
   //find the first non whitespace charachter.
-  while(index < length && isspace(uri[index])){++index;}
-  startIndex = index; // need this to copy the full url at the end.
-  
+  while(index < length && isspace(uri+index)){++index;}
+  start_index = index; // need this to copy the full url at the end.
+ 
+  //schema
 
-  return false;
+  while(index < length && (uri[index] != ':' || uri[index] != '/')){++index;};
+  end_index = index;
+  hostname_size = end_index - start_index;
+  uri_struct->hostname = (char *) calloc(hostname_size,sizeof(char));
+  
+  strncpy(uri_struct->hostname, uri+start_index, hostname_size);
+
+  return ;
 }

@@ -5,7 +5,21 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "net_sock.h"
+
+/**
+ @brief Tests to make sure that the hostname can be retrieved.
+*/
+BOOST_AUTO_TEST_CASE( parseHostName )
+{
+  gr_uri uri;
+  const char * testUri = "www.test.com";
+  BOOST_CHECK(gr_netSock_createURI(&uri,testUri,strlen(testUri)));
+  printf("Hostname: %s\n",uri.hostname);
+  BOOST_CHECK(uri.hostname != NULL);
+  BOOST_CHECK_EQUAL(strcmp(uri.hostname,testUri),0);
+}
 
 
 /**
@@ -25,7 +39,6 @@ BOOST_AUTO_TEST_CASE( parseBaseURI)
   BOOST_CHECK_EQUAL(uri.user,"ryan");
   BOOST_CHECK(uri.file != NULL);
   BOOST_CHECK_EQUAL(uri.file,"/index.html");
-
 }
 
 /**

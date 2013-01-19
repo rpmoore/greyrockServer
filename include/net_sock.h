@@ -31,7 +31,7 @@ net_socket getTcpClientSocket(const char* address, const char* port);
   @param uriLength The length of the uri character buffer.
   @return true is returned if the uri is valid, othewise false is returned.
 */
-bool gr_netSock_createURI(const gr_uri *uri_struct, const char *uri, const size_t length);
+bool gr_netSock_createURI(gr_uri *uri_struct, const char *uri, const size_t length);
 
 #ifdef __cplusplus
 }
