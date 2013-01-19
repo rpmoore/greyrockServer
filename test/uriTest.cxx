@@ -32,6 +32,31 @@ BOOST_AUTO_TEST_CASE( parseSchema )
   BOOST_CHECK_EQUAL(strcmp(uri.hostname,testUri),0);
 }
 
+/**
+ @brief Tests to make sure that the hostname can be retrieved ignoring characters after whitespace.
+*/
+BOOST_AUTO_TEST_CASE( parseIgnoringEndingSpace )
+{
+  gr_uri uri;
+  const char * testUri = "www.test.com ignored";
+  const char * expectedUri= "www.test.com";
+  BOOST_CHECK(gr_netSock_createURI(&uri,testUri,strlen(testUri)));
+  BOOST_CHECK(uri.hostname != NULL);
+  BOOST_CHECK_EQUAL(strcmp(uri.hostname,expectedUri),0);
+}
+
+/**
+ @brief Tests to make sure that the hostname can be retrieved ignoring starting whitespace.
+*/
+BOOST_AUTO_TEST_CASE( parseIgnoringStartingSpace )
+{
+  gr_uri uri;
+  const char * testUri = "  www.test.com";
+  const char * expectedUri = "www.test.com";
+  BOOST_CHECK(gr_netSock_createURI(&uri,testUri,strlen(testUri)));
+  BOOST_CHECK(uri.hostname != NULL);
+  BOOST_CHECK_EQUAL(strcmp(uri.hostname,expectedUri),0);
+}
 
 /**
  @brief A basic test to make sure that the absolute path can be parsed.
@@ -40,9 +65,10 @@ BOOST_AUTO_TEST_CASE( parseUrlPath )
 {
   gr_uri uri;
   const char * testURI = "www.test.com/index.html";
+  const char * expectedURI = "www.test.com";
   BOOST_CHECK(gr_netSock_createURI(&uri,testURI,strlen(testURI)));
   BOOST_CHECK(uri.hostname != NULL);
-  BOOST_CHECK_EQUAL(strcmp(uri.hostname,testURI),0);
+  BOOST_CHECK_EQUAL(strcmp(uri.hostname,expectedURI),0);
   BOOST_CHECK_EQUAL(uri.port,0);
   BOOST_CHECK(uri.protocol == NULL);
   BOOST_CHECK(uri.user == NULL);
