@@ -88,6 +88,7 @@ BOOST_AUTO_TEST_CASE( echo_test)
   BOOST_CHECK_EQUAL(strcmp(inBuf,secondBuf),0);
   
   free(inBuf);
+  free(secondBuf);
   close(serverSocket);
   close(clientSocket);
 }

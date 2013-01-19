@@ -33,6 +33,36 @@ BOOST_AUTO_TEST_CASE( parseSchema )
 }
 
 /**
+ @brief Tests to make sure that the hostname can be retrieved.
+*/
+BOOST_AUTO_TEST_CASE( parsePort )
+{
+  gr_uri uri;
+  const char * testUri = "www.test.com:1234";
+  const char * expectedUri = "www.test.com";
+  BOOST_CHECK(gr_netSock_createURI(&uri,testUri,strlen(testUri)));
+  BOOST_CHECK(uri.hostname != NULL);
+  BOOST_CHECK_EQUAL(strcmp(uri.hostname,expectedUri), 0);
+  BOOST_CHECK_EQUAL(uri.port,1234);
+}
+
+/**
+ @brief Tests to make sure that the hostname can be retrieved.
+*/
+BOOST_AUTO_TEST_CASE( parseUser )
+{
+  gr_uri uri;
+  const char * testUri = "ryan@www.test.com";
+  const char * expectedUri = "www.test.com";
+  const char * user = "ryan";
+  BOOST_CHECK(gr_netSock_createURI(&uri,testUri,strlen(testUri)));
+  BOOST_CHECK(uri.hostname != NULL);
+  BOOST_CHECK_EQUAL(strcmp(uri.hostname,expectedUri), 0);
+  BOOST_CHECK(uri.user != NULL);
+  BOOST_CHECK_EQUAL(strcmp(uri.user,user), 0);
+}
+
+/**
  @brief Tests to make sure that the hostname can be retrieved ignoring characters after whitespace.
 */
 BOOST_AUTO_TEST_CASE( parseIgnoringEndingSpace )
@@ -92,7 +122,6 @@ BOOST_AUTO_TEST_CASE( parseAbsoluteURI )
   BOOST_CHECK_EQUAL(uri.file,"/index.html");
 
 }
-
 
 /**
  @brief A basic test to make sure that each field can get parsed correctly.

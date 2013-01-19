@@ -2,6 +2,7 @@
 #define NET__SOCK__H__
 
 #include <stdbool.h>
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -11,11 +12,11 @@ typedef int net_socket;
 
 typedef struct __http__uri {
   char *uri_str;
-  int port;
   char *hostname;
   char *protocol;
   char *user;
   char *file;
+  uint16_t port;
 } gr_uri;
 
 net_socket getTcpServerSocket(const char* port, int backLog);
