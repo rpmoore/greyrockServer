@@ -9,7 +9,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
 
 #set the version information
 set (VERSION_MAJOR 0)
-set (VERSION_MINOR 1)
+set (VERSION_MINOR 2)
 
 configure_file(
     "${PROJECT_SOURCE_DIR}/version.h.in"

@@ -25,7 +25,8 @@ net_socket getTcpClientSocket(const char* address, const char* port);
   @brief Parse the string in uri into the structure uri_struct.
   This will read from the char string until it finds the first non whitespace
   character sequence.  It will then parse that sequence until it hits the end
-  of the buffer or ht next whitespace character.
+  of the buffer or the next whitespace character.  This parses a RFC 3986
+  uri.
   @param uri_struct The new gr_uri to fill out.
   @param uri The uri string to parse.
   @param uriLength The length of the uri character buffer.
