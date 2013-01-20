@@ -17,7 +17,7 @@ void
 grs_copy_element_to_struct(void **struct_entry,const void *data, uint32_t element_size);
 
 net_socket
-getTcpServerSocket(const char* port, int backLog){
+gr_tcp_server_socket(const char* port, int backLog){
   struct addrinfo hints,*servinfo,*p;
   int rv,sockfd;
   int yes = 1;
@@ -62,7 +62,7 @@ getTcpServerSocket(const char* port, int backLog){
 }
 
 net_socket
-getTcpClientSocket(const char* address,const char* port){
+gr_tcp_client_socket(const char* address,const char* port){
   struct addrinfo hints,*servinfo,*p;
   int rv,sockfd;
   memset(&hints, 0,sizeof(struct addrinfo));
@@ -90,24 +90,24 @@ getTcpClientSocket(const char* address,const char* port){
 }
 
 bool
-gr_netSock_createURI(gr_uri *uri_struct, const char *uri, const size_t length){
+gr_netsock_create_url(gr_url *url_struct, const char *url, const size_t length){
   uint32_t index = 0,start_index,end_index,hostname_size,file_size;
   
-  //clear out the uri struct
-  memset((void *)uri_struct,0,sizeof(gr_uri));
+  //clear out the url struct
+  memset((void *)url_struct,0,sizeof(gr_url));
   
   //start reading the characters from the input stream.
   //find the first non whitespace charachter.
-  while(index < length && isspace(uri[index])){++index;}
+  while(index < length && isspace(url[index])){++index;}
   start_index = index; // need this to copy the full url at the end.
 
   //gethostname
-  while(index < length && uri[index] != ':' && uri[index] != '/' && !isspace(uri[index])){++index;};
+  while(index < length && url[index] != ':' && url[index] != '/' && !isspace(url[index])){++index;};
   end_index = index;
   hostname_size = end_index - start_index;
   //only add the hostname if there is one.  This allows for absolute paths.
   if(hostname_size != 0){
-    grs_copy_element_to_struct((void **)&uri_struct->hostname,(const void *)uri+start_index,hostname_size); 
+    grs_copy_element_to_struct((void **)&url_struct->hostname,(const void *)url+start_index,hostname_size); 
   }
   if(index == length)
   {
@@ -115,18 +115,17 @@ gr_netSock_createURI(gr_uri *uri_struct, const char *uri, const size_t length){
   }
   
   start_index = end_index;
-  while(index < length && uri[index] != '?'){++index;};
+  while(index < length && url[index] != '?'){++index;};
   end_index = index;
   
   file_size = end_index - start_index;
-  grs_copy_element_to_struct((void **)&uri_struct->file,(const void *)uri+start_index,file_size); 
+  grs_copy_element_to_struct((void **)&url_struct->file,(const void *)url+start_index,file_size); 
 
   return true;
 }
 
 void
-grs_copy_element_to_struct(void **struct_entry,const void *data, uint32_t element_size)
-{
+grs_copy_element_to_struct(void **struct_entry,const void *data, uint32_t element_size){
   *struct_entry = (char *) calloc(element_size,sizeof(char));
   strncpy(*struct_entry, data, element_size);
 }

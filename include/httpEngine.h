@@ -21,7 +21,7 @@ typedef enum __http__method {
 typedef struct __http__request {
   gr_request_version version;
   gr_method method;
-  gr_uri uri;
+  gr_url url;
   net_socket soc;
   
 } gr_request;

@@ -11,134 +11,134 @@
 /**
  @brief Tests to make sure that the hostname can be retrieved.
 */
-BOOST_AUTO_TEST_CASE( parseHostName )
+BOOST_AUTO_TEST_CASE( parse_host_name )
 {
-  gr_uri uri;
-  const char * testUri = "www.test.com";
-  BOOST_CHECK(gr_netSock_createURI(&uri,testUri,strlen(testUri)));
-  BOOST_CHECK(uri.hostname != NULL);
-  BOOST_CHECK_EQUAL(strcmp(uri.hostname,testUri),0);
+  gr_url url;
+  const char * test_url = "www.test.com";
+  BOOST_CHECK(gr_netsock_create_url(&url,test_url,strlen(test_url)));
+  BOOST_CHECK(url.hostname != NULL);
+  BOOST_CHECK_EQUAL(strcmp(url.hostname,test_url),0);
 }
 
 /**
  @brief Tests to make sure that the hostname and schema can be retrieved.
 */
-BOOST_AUTO_TEST_CASE( parseSchema )
+BOOST_AUTO_TEST_CASE( parse_schema )
 {
-  gr_uri uri;
-  const char * testUri = "http://www.test.com";
-  BOOST_CHECK(gr_netSock_createURI(&uri,testUri,strlen(testUri)));
-  BOOST_CHECK(uri.hostname != NULL);
-  BOOST_CHECK_EQUAL(strcmp(uri.hostname,testUri),0);
+  gr_url url;
+  const char * test_url = "http://www.test.com";
+  BOOST_CHECK(gr_netsock_create_url(&url,test_url,strlen(test_url)));
+  BOOST_CHECK(url.hostname != NULL);
+  BOOST_CHECK_EQUAL(strcmp(url.hostname,test_url),0);
 }
 
 /**
  @brief Tests to make sure that the hostname can be retrieved.
 */
-BOOST_AUTO_TEST_CASE( parsePort )
+BOOST_AUTO_TEST_CASE( parse_port )
 {
-  gr_uri uri;
-  const char * testUri = "www.test.com:1234";
-  const char * expectedUri = "www.test.com";
-  BOOST_CHECK(gr_netSock_createURI(&uri,testUri,strlen(testUri)));
-  BOOST_CHECK(uri.hostname != NULL);
-  BOOST_CHECK_EQUAL(strcmp(uri.hostname,expectedUri), 0);
-  BOOST_CHECK_EQUAL(uri.port,1234);
+  gr_url url;
+  const char * test_url = "www.test.com:1234";
+  const char * expected_url = "www.test.com";
+  BOOST_CHECK(gr_netsock_create_url(&url,test_url,strlen(test_url)));
+  BOOST_CHECK(url.hostname != NULL);
+  BOOST_CHECK_EQUAL(strcmp(url.hostname,expected_url), 0);
+  BOOST_CHECK_EQUAL(url.port,1234);
 }
 
 /**
  @brief Tests to make sure that the hostname can be retrieved.
 */
-BOOST_AUTO_TEST_CASE( parseUser )
+BOOST_AUTO_TEST_CASE( parse_user )
 {
-  gr_uri uri;
-  const char * testUri = "ryan@www.test.com";
-  const char * expectedUri = "www.test.com";
+  gr_url url;
+  const char * test_url = "ryan@www.test.com";
+  const char * expected_url = "www.test.com";
   const char * user = "ryan";
-  BOOST_CHECK(gr_netSock_createURI(&uri,testUri,strlen(testUri)));
-  BOOST_CHECK(uri.hostname != NULL);
-  BOOST_CHECK_EQUAL(strcmp(uri.hostname,expectedUri), 0);
-  BOOST_CHECK(uri.user != NULL);
-  BOOST_CHECK_EQUAL(strcmp(uri.user,user), 0);
+  BOOST_CHECK(gr_netsock_create_url(&url,test_url,strlen(test_url)));
+  BOOST_CHECK(url.hostname != NULL);
+  BOOST_CHECK_EQUAL(strcmp(url.hostname,expected_url), 0);
+  BOOST_CHECK(url.user != NULL);
+  BOOST_CHECK_EQUAL(strcmp(url.user,user), 0);
 }
 
 /**
  @brief Tests to make sure that the hostname can be retrieved ignoring characters after whitespace.
 */
-BOOST_AUTO_TEST_CASE( parseIgnoringEndingSpace )
+BOOST_AUTO_TEST_CASE( parse_ignoring_ending_space )
 {
-  gr_uri uri;
-  const char * testUri = "www.test.com ignored";
-  const char * expectedUri= "www.test.com";
-  BOOST_CHECK(gr_netSock_createURI(&uri,testUri,strlen(testUri)));
-  BOOST_CHECK(uri.hostname != NULL);
-  BOOST_CHECK_EQUAL(strcmp(uri.hostname,expectedUri),0);
+  gr_url url;
+  const char * test_url = "www.test.com ignored";
+  const char * expected_url= "www.test.com";
+  BOOST_CHECK(gr_netsock_create_url(&url,test_url,strlen(test_url)));
+  BOOST_CHECK(url.hostname != NULL);
+  BOOST_CHECK_EQUAL(strcmp(url.hostname,expected_url),0);
 }
 
 /**
  @brief Tests to make sure that the hostname can be retrieved ignoring starting whitespace.
 */
-BOOST_AUTO_TEST_CASE( parseIgnoringStartingSpace )
+BOOST_AUTO_TEST_CASE( parse_ignoring_starting_space )
 {
-  gr_uri uri;
-  const char * testUri = "  www.test.com";
-  const char * expectedUri = "www.test.com";
-  BOOST_CHECK(gr_netSock_createURI(&uri,testUri,strlen(testUri)));
-  BOOST_CHECK(uri.hostname != NULL);
-  BOOST_CHECK_EQUAL(strcmp(uri.hostname,expectedUri),0);
+  gr_url url;
+  const char * test_url = "  www.test.com";
+  const char * expected_url = "www.test.com";
+  BOOST_CHECK(gr_netsock_create_url(&url,test_url,strlen(test_url)));
+  BOOST_CHECK(url.hostname != NULL);
+  BOOST_CHECK_EQUAL(strcmp(url.hostname,expected_url),0);
 }
 
 /**
  @brief A basic test to make sure that the absolute path can be parsed.
 */
-BOOST_AUTO_TEST_CASE( parseUrlPath )
+BOOST_AUTO_TEST_CASE( parse_url_path )
 {
-  gr_uri uri;
-  const char * testURI = "www.test.com/index.html";
-  const char * expectedURI = "www.test.com";
-  BOOST_CHECK(gr_netSock_createURI(&uri,testURI,strlen(testURI)));
-  BOOST_CHECK(uri.hostname != NULL);
-  BOOST_CHECK_EQUAL(strcmp(uri.hostname,expectedURI),0);
-  BOOST_CHECK_EQUAL(uri.port,0);
-  BOOST_CHECK(uri.protocol == NULL);
-  BOOST_CHECK(uri.user == NULL);
-  BOOST_CHECK(uri.file != NULL);
-  BOOST_CHECK_EQUAL(uri.file,"/index.html");
+  gr_url url;
+  const char * test_url = "www.test.com/index.html";
+  const char * expected_url = "www.test.com";
+  BOOST_CHECK(gr_netsock_create_url(&url,test_url,strlen(test_url)));
+  BOOST_CHECK(url.hostname != NULL);
+  BOOST_CHECK_EQUAL(strcmp(url.hostname,expected_url),0);
+  BOOST_CHECK_EQUAL(url.port,0);
+  BOOST_CHECK(url.protocol == NULL);
+  BOOST_CHECK(url.user == NULL);
+  BOOST_CHECK(url.file != NULL);
+  BOOST_CHECK_EQUAL(url.file,"/index.html");
 }
 
 /**
  @brief A basic test to make sure that the absolute path can be parsed.
 */
-BOOST_AUTO_TEST_CASE( parseAbsoluteURI )
+BOOST_AUTO_TEST_CASE( parse_absolute_url )
 {
-  gr_uri uri;
-  const char * testURI = "/index.html";
-  BOOST_CHECK(gr_netSock_createURI(&uri,testURI,strlen(testURI)));
-  BOOST_CHECK(uri.hostname == NULL);
-  BOOST_CHECK_EQUAL(uri.port,0);
-  BOOST_CHECK(uri.protocol == NULL);
-  BOOST_CHECK(uri.user == NULL);
-  BOOST_CHECK(uri.file != NULL);
-  BOOST_CHECK_EQUAL(uri.file,"/index.html");
+  gr_url url;
+  const char * test_url = "/index.html";
+  BOOST_CHECK(gr_netsock_create_url(&url,test_url,strlen(test_url)));
+  BOOST_CHECK(url.hostname == NULL);
+  BOOST_CHECK_EQUAL(url.port,0);
+  BOOST_CHECK(url.protocol == NULL);
+  BOOST_CHECK(url.user == NULL);
+  BOOST_CHECK(url.file != NULL);
+  BOOST_CHECK_EQUAL(url.file,"/index.html");
 
 }
 
 /**
  @brief A basic test to make sure that each field can get parsed correctly.
 */
-BOOST_AUTO_TEST_CASE( parseUriFull )
+BOOST_AUTO_TEST_CASE( parse_url_full )
 {
-  gr_uri uri;
-  const char * testURI = "http://ryan@www.test.com:88/index.html";
-  BOOST_CHECK(gr_netSock_createURI(&uri,testURI,strlen(testURI)));
-  BOOST_CHECK(uri.hostname != NULL);
-  BOOST_CHECK_EQUAL(strcmp(uri.hostname,"www.test.com"),0);
-  BOOST_CHECK_EQUAL(uri.port,88);
-  BOOST_CHECK(uri.protocol != NULL);
-  BOOST_CHECK_EQUAL(uri.protocol,"http");
-  BOOST_CHECK(uri.user != NULL);
-  BOOST_CHECK_EQUAL(uri.user,"ryan");
-  BOOST_CHECK(uri.file != NULL);
-  BOOST_CHECK_EQUAL(uri.file,"/index.html");
+  gr_url url;
+  const char * test_url = "http://ryan@www.test.com:88/index.html";
+  BOOST_CHECK(gr_netsock_create_url(&url,test_url,strlen(test_url)));
+  BOOST_CHECK(url.hostname != NULL);
+  BOOST_CHECK_EQUAL(strcmp(url.hostname,"www.test.com"),0);
+  BOOST_CHECK_EQUAL(url.port,88);
+  BOOST_CHECK(url.protocol != NULL);
+  BOOST_CHECK_EQUAL(url.protocol,"http");
+  BOOST_CHECK(url.user != NULL);
+  BOOST_CHECK_EQUAL(url.user,"ryan");
+  BOOST_CHECK(url.file != NULL);
+  BOOST_CHECK_EQUAL(url.file,"/index.html");
 }
 
